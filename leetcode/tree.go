@@ -11,7 +11,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-func NewBinaryTree(nums []any) *TreeNode {
+func NewTree(nums []any) *TreeNode {
 	if len(nums) == 0 {
 		return nil
 	}
@@ -42,18 +42,22 @@ func NewBinaryTree(nums []any) *TreeNode {
 }
 
 func (root *TreeNode) Print() {
+	str := root.outputString()
+	fmt.Printf(str + "\n")
+}
+
+func (root *TreeNode) outputString() string {
 	if root == nil {
-		fmt.Printf("[]\n")
-		return
+		return fmt.Sprintf("[]")
 	}
-	fmt.Printf("[")
+	str := fmt.Sprintf("[")
 	queue := []*TreeNode{root}
 	for i := 0; i < len(queue); i++ {
 		p := queue[i]
 		if i == 0 {
-			fmt.Printf("%v", p.Val)
+			str = str + fmt.Sprintf("%v", p.Val)
 		} else {
-			fmt.Printf(" %v", p.Val)
+			str = str + fmt.Sprintf(", %v", p.Val)
 		}
 		if p.Left != nil {
 			queue = append(queue, p.Left)
@@ -62,5 +66,6 @@ func (root *TreeNode) Print() {
 			queue = append(queue, p.Right)
 		}
 	}
-	fmt.Printf("]\n")
+	str = str + fmt.Sprintf("]")
+	return str
 }
